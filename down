@@ -1,0 +1,5 @@
+#!/bin/bash
+docker-compose -f docker-compose.yml down
+docker rmi -f `docker images | grep none | awk '{print $3}'`
+docker rmi -f `docker images | grep "imgbed*" | awk '{print $3}'`
+docker system prune -f

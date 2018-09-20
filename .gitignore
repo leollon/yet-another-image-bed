@@ -1,0 +1,6 @@
+*.pyc
+.tags*
+.vscode/
+picEnv/
+__pycache__/
+picEnv/

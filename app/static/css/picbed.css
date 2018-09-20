@@ -1,0 +1,89 @@
+body {
+    margin-top: 60px;
+}
+
+#hint {
+    border-bottom: 1px solid silver;
+    margin-bottom: 15px;
+    color: black;
+    font-size: 14px;
+}
+
+div.thumbnail {
+    min-height: 200px;
+    width: auto;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+#submit,
+#nav-tabs,
+#navTabContent {
+    visibility: hidden;
+}
+
+button,
+pre {
+    margin-top: 5px;
+}
+
+pre {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10.5px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333333;
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 0;
+    white-space: normal;
+    margin-top: 5px;
+}
+
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+#filename {
+    border-radius: 0 !important;
+}
+
+::selection {
+    background: aquamarine;
+    color: black;
+}
+
+code::selection {
+    background: deeppink;
+    color: whitesmoke;
+}
+
+p {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#failure,
+#success,
+p {
+    text-align: center;
+}
+
+#failure img,
+#success img {
+    max-height: 65%;
+    max-width: 65%;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+}

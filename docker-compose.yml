@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  mongo:
+      image: mongo:3.4
+      volumes:
+        - ./mongo_db:/data/db
+      ports:
+        - "17017:27017"
+  web:
+    image: imgbed_codebase
+    build: 
+      context: .
+      dockerfile: ./compose/production/picbed/Dockerfile
+    command: uwsgi --ini uwsgi.ini
+    ports:
+      - "5050:5050"
+      - "5151:5151"
+    volumes:
+      - ./static_files:/home/imgbed/app/static
+      - ./uploaded_images:/home/imgbed/upload
+    depends_on:
+      - mongo
+

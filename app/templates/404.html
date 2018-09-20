@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{%block title %}404 Not Found{% endblock %}
+{% block container %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 singlePage" id="failure">
+            <p style="color: orange;">404 Have Found.</p>
+            <img src="{{ url_for('static', filename='images/404.png') }}" alt="呆.png"
+                title="呆.png">
+        </div>
+    </div>
+</div>
+{% endblock %}
