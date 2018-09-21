@@ -1,90 +1,81 @@
 {% extends 'base.html' %}
 {% block container %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2>Image Upload</h2>
-            <div class="text-muted" id="hint">
-                Max 5MB/file at a time.
-            </div>
-            <div class="thumbnail">
-                <img id="img-thumbnail" src="">
-            </div>
-            <form id="file-form" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <input id="file" type="file" name="file" class="hidden">
-                <input class="form-control" id="filename" type="text" title=""
-                    disabled>
-                <button id="select-file" class="btn btn-info" type="button"
-                    aria-label="Left Align">
-                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                    Browse...
-                </button>
-                <button id="submit" class="btn btn-primary" type="button"
-                    aria-label="Left Align">
-                    <span class="glyphicon glyphicon-circle-arrow-up"
-                        aria-hidden="true">
-                    </span>
-                    Upload
-                </button>
-            </form>
-            <div id="related-link">
-                <ul class="nav nav-tabs" id="nav-tabs">
-                    <li class="active">
-                        <a href="#urlcodes" data-toggle="tab" aria-expanded="true">
-                            URL
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#htmlcodes" data-toggle="tab" aria-expanded="false">
-                            HTML
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#markdowncodes" data-toggle="tab"
-                            aria-expanded="false">
-                            Markdown
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#mdwithlinkcodes" data-toggle="tab"
-                            aria-expanded="false">
-                            Markdown With Link
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#deletepanel" data-toggle="tab" aria-expanded="false">
-                            Delete Link
-                        </a>
-                    </li>
-                </ul>
-                <div id="navTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="urlcodes">
-                        <pre>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h2>Image Upload</h2>
+    <div class="text-muted" id="hint">
+        Max 5MB/file at a time.
+    </div>
+    <div class="thumbnail">
+        <img id="img-thumbnail" src="">
+    </div>
+    <form id="file-form" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input id="file" type="file" name="file" class="hidden">
+        <input class="form-control" id="filename" type="text" title=""
+            disabled>
+        <button id="select-file" class="btn btn-info" type="button" aria-label="Left Align">
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+            Browse...
+        </button>
+        <button id="submit" class="btn btn-primary" type="button" aria-label="Left Align">
+            <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true">
+            </span>
+            Upload
+        </button>
+    </form>
+    <div id="related-link">
+        <ul class="nav nav-tabs" id="nav-tabs">
+            <li class="active">
+                <a href="#urlcodes" data-toggle="tab" aria-expanded="true">
+                    URL
+                </a>
+            </li>
+            <li>
+                <a href="#htmlcodes" data-toggle="tab" aria-expanded="false">
+                    HTML
+                </a>
+            </li>
+            <li>
+                <a href="#markdowncodes" data-toggle="tab" aria-expanded="false">
+                    Markdown
+                </a>
+            </li>
+            <li>
+                <a href="#mdwithlinkcodes" data-toggle="tab" aria-expanded="false">
+                    Markdown With Link
+                </a>
+            </li>
+            <li>
+                <a href="#deletepanel" data-toggle="tab" aria-expanded="false">
+                    Delete Link
+                </a>
+            </li>
+        </ul>
+        <div id="navTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="urlcodes">
+                <pre>
                         <code id="urlcode"></code>
                     </pre>
-                    </div>
-                    <div class="tab-pane fade" id="htmlcodes">
-                        <pre>
+            </div>
+            <div class="tab-pane fade" id="htmlcodes">
+                <pre>
                         <code id="htmlcode"></code>
                     </pre>
-                    </div>
-                    <div class="tab-pane fade" id="markdowncodes">
-                        <pre>
+            </div>
+            <div class="tab-pane fade" id="markdowncodes">
+                <pre>
                         <code id="markdowncode"></code>
                     </pre>
-                    </div>
-                    <div class="tab-pane fade" id="mdwithlinkcodes">
-                        <pre>
+            </div>
+            <div class="tab-pane fade" id="mdwithlinkcodes">
+                <pre>
                         <code id="mdwithlinkcode"></code>
                     </pre>
-                    </div>
-                    <div class="tab-pane fade" id="deletepanel">
-                        <pre>
+            </div>
+            <div class="tab-pane fade" id="deletepanel">
+                <pre>
                         <code id="deletecode"></code>
                     </pre>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
