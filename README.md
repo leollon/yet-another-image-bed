@@ -15,7 +15,7 @@
 2. $ sudo bash onekey-deploy.sh
 3. paste this configuration to your nginx vhost in the server block.
 
-    **modify username to your username, then `ctrl+c` and `ctrl+v`, yeah.**
+    **Note: modify username to your username, then `ctrl+c` and `ctrl+v`, yeah.**
     ```
     location / {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -37,7 +37,7 @@
 
 ### ToDO
    - [x] upload/remove an image
-   - [x] deployed with docker
+   - [x] deploy with docker compose
 
 ### Modifications based on your needs
 
