@@ -87,3 +87,26 @@ p {
     border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 8px;
 }
+
+#image-list {
+    list-style: none;
+}
+
+li.content {
+    margin: 0px 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+.content>img {
+    max-width: 130px;
+    max-height: 130px;
+}
+
+.operation>button {
+    visibility: hidden;
+}
+
+.content:hover button {
+    visibility: visible;
+}

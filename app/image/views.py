@@ -100,3 +100,7 @@ def remove(img_id):
     else:
         return render_template('404.html')
 
+@image.route('/all-images/')
+def list_image():
+    image_list = PicBed.objects
+    return render_template('list.html', image_list=image_list)

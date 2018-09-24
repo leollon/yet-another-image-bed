@@ -64,3 +64,14 @@ function renderData(jsonData) {
     $('#mdwithlinkcode').text(mdwithlinkcode);
     $('#deletecode').text(deletecode);
 }
+
+$('.del-btn').on('click', function (e) {
+    let id = $(this).data('img-id');
+    $.ajax({
+        url: '/remove/' + $(this).data('img-id'),
+        type: 'GET',
+        success: function () {
+            $('#' + id).remove()
+        }
+    })
+})
