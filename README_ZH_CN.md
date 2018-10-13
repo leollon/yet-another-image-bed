@@ -1,25 +1,23 @@
-# A image bed is ready for my blog, which supports https.
+# 自建属于你自己的图床
 
-[中文部署文档](README_ZH_CN.md)
-
-# Acknowledgements
+# 致谢
 - [letsencrypt](https://letsencrypt.org/)
 - [flask](https://github.com/pallets/flask)
 - [docker-ce](https://www.docker.com/community-edition)
 - [docker-compose](https://github.com/docker/compose)
 - [sm.ms](https://sm.ms)
 
-## Ambition
-> Letsencrypt provides SSL/TLP certificate to support https, code based on my
-> personal needs, and practise what I've learned from docker and docker-compose.
+## 目的
+> 为了使[我的动态博客](https://blog.quantuminit.com)支持全站https，所以跟着flask文档并阅读docker官方文档，进行开发与部署，个人需求驱使，也属于填坑项吧。
 
-## Deploy
+## 部署
 
 1. $ git clone https://github.com/leollon/yet-another-image-bed.git imgbed-project
 2. $ sudo bash onekey-deploy.sh
 3. paste this configuration to your nginx vhost in the server block.
+3. 复制下面这段配置到Nginx server 块中。
 
-    **Note: modify username to your username, then `ctrl+c` and `ctrl+v`, yeah.**
+    **注意: 更改username为你自己的username, 然后 `ctrl+c`，接着 `ctrl+v`, 是的，没错。**
     ```
     location / {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -39,19 +37,19 @@
         }
     ```
 
-### ToDO
-   - [x] upload/remove an image
-   - [x] deploy with docker compose
-   - [x] view all uploaded images
+### 待做
+   - [x] 上传/删除一张照片
+   - [x] 使用docker compose部署
+   - [x] 查看所有上传的图片
 
-### Modifications based on your needs
+### 自定义个人配置
 
 - config.py
 
-  >set mongoengine connection, the max size of each uploaded image and so on.
+  > 设置mongoengine 连接，限制上传的图片的大小等等。
 
 - compose/production/mongodb/createUser.js
-  > set user and password for imgbed document
+  > 为`imgbed`文档数据库设置用户名和密码
 
 ## License 
 > [GNU LV3](./LICENSE)
