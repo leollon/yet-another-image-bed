@@ -9,11 +9,7 @@ class PicBed(Document):
     created_time = DateTimeField(default=datetime.utcnow())
     meta = {
         "collection": "images",
-        "indexes": [
-            'img_id',
-            'orig_img_name',
-            ('img_id', 'img_name')
-        ]
+        "indexes": ['img_id', 'orig_img_name', ('img_id', 'img_name')]
     }
 
     def __str__(self):

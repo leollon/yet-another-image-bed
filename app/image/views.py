@@ -18,7 +18,10 @@ def index():
     if request.method == 'POST':
         resp_data = {
             "code": 'success',
-            "data": {"imgName": None, "fileId": None}
+            "data": {
+                "imgName": None,
+                "fileId": None
+            }
         }
         # check if the post request has the file part
         if not os.path.exists(current_app.config['UPLOAD_BASE_FOLDER']):
@@ -31,8 +34,7 @@ def index():
             return Response(
                 json.dumps(resp_data, indent=4),
                 content_type="application/json; charset=utf-8",
-                status=400
-            )
+                status=400)
         file = request.files['file']
         # if a user don't select file, browser also
         # submit a empty part without filename
@@ -44,44 +46,35 @@ def index():
             return Response(
                 json.dumps(resp_data, indent=4),
                 content_type="application/json; charset=utf-8",
-                status=400
-            )
+                status=400)
         if file and allowed_file(file.filename):
             original_name = file.filename.rsplit('/')[-1]  # 取上传文件的原始文件名
             file_type = secure_filename(file.filename).rsplit('.')[-1].lower()
-            img_name = str(uuid.uuid4()).replace(
-                '-', '')[:16] + '.' + file_type
+            img_name = str(uuid.uuid4()).replace('-',
+                                                 '')[:16] + '.' + file_type
             file_id = str(uuid.uuid1()).replace('-', '')[:10]
             file.save(
                 os.path.join(current_app.config['UPLOAD_BASE_FOLDER'],
-                            img_name))
-            resp_data.update(
-                {
-                    "data":
-                    {
-                        "imgName": img_name,
-                        "fileId": file_id,
-                        "origName": original_name
-                    }
+                             img_name))
+            resp_data.update({
+                "data": {
+                    "imgName": img_name,
+                    "fileId": file_id,
+                    "origName": original_name
                 }
-            )
+            })
             pic_bed = PicBed(
-                img_id=file_id,
-                orig_img_name=original_name,
-                img_name=img_name
-            )
+                img_id=file_id, orig_img_name=original_name, img_name=img_name)
             pic_bed.save()
             return Response(
                 json.dumps(resp_data, indent=4),
-                content_type="application/json; charset=utf-8"
-            )
+                content_type="application/json; charset=utf-8")
         else:
             resp_data['msg'] = 'error'
             return Response(
                 json.dumps(resp_data, indent=4),
                 content_type='application/json; charset=utf-8',
-                status=400
-            )
+                status=400)
     return render_template('upload.html')
 
 
@@ -99,6 +92,7 @@ def remove(img_id):
         return render_template('success.html')
     else:
         return render_template('404.html')
+
 
 @image.route('/all-images/')
 def list_image():
