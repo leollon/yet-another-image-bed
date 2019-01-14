@@ -50,7 +50,7 @@
 
   >set mongoengine connection, the max size of each uploaded image and so on.
 
-- compose/production/mongodb/createUser.js
+- compose/local/mongodb/createUser.js
   > set user and password for imgbed document
 
 ## License 

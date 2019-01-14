@@ -48,7 +48,7 @@
 
   > 设置mongoengine 连接，限制上传的图片的大小等等。
 
-- compose/production/mongodb/createUser.js
+- compose/local/mongodb/createUser.js
   > 为`imgbed`文档数据库设置用户名和密码
 
 ## License 

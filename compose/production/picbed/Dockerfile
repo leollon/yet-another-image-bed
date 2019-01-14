@@ -22,6 +22,7 @@ RUN mkdir /home/imgbed
 WORKDIR /home/imgbed
 
 RUN useradd -s /bin/bash -d /home/imgbed imgbed
+RUN usermod -aG imgbed imgbed
 RUN echo 'imgbed ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'imgbed:imgbed' | chpasswd
 
@@ -30,11 +31,11 @@ COPY requirements.txt ./
 COPY app ./app
 COPY config.py ./config.py
 COPY wsgi.py ./
-COPY compose/production/picbed/uwsgi.ini ./uwsgi.ini
+COPY compose/local/picbed/uwsgi.ini ./uwsgi.ini
 
 
 # Install dependencies
-RUN pip install -r requirements.txt && rm -f requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && rm -f requirements.txt
 RUN chown -R imgbed:imgbed ./
 RUN chmod -R 755 ./
 
@@ -46,4 +47,3 @@ RUN touch $PIDFILE $LOGFILE
 
 RUN bash -c "echo -e \"uid=imgbed\ngid=imgbed\nhome=/usr/local/\nchdir=./\npidfile=$PIDFILE\nlogto=$LOGFILE\" >> \
     ./uwsgi.ini"
-
