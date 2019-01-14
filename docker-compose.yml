@@ -7,12 +7,14 @@ services:
         - ./mongo_db:/data/db
       ports:
         - "17017:27017"
+      restart: "always"
   web:
     image: imgbed_codebase
     build: 
       context: .
-      dockerfile: ./compose/production/picbed/Dockerfile
+      dockerfile: ./compose/local/picbed/Dockerfile
     command: uwsgi --ini uwsgi.ini
+    restart: "always"
     ports:
       - "5050:5050"
       - "5151:5151"
