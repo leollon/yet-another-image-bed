@@ -31,7 +31,7 @@ COPY requirements.txt ./
 COPY app ./app
 COPY config.py ./config.py
 COPY wsgi.py ./
-COPY compose/local/picbed/uwsgi.ini ./uwsgi.ini
+COPY compose/production/picbed/uwsgi.ini ./uwsgi.ini
 
 
 # Install dependencies

@@ -12,7 +12,7 @@ services:
     image: imgbed_codebase
     build: 
       context: .
-      dockerfile: ./compose/local/picbed/Dockerfile
+      dockerfile: ./compose/production/picbed/Dockerfile
     command: uwsgi --ini uwsgi.ini
     restart: "always"
     ports:
