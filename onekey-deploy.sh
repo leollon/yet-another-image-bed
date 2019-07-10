@@ -8,14 +8,14 @@ fi
 
 mkdir mongo_db static_files uploaded_images
 cp -r ./app/static/* static_files
-OS_ID=$(cat /etc/os-release | grep -i "^id=.*" | cut -d '=' -f 2)
+OS_ID=$(grep -i "^id=.*" /etc/os-release | cut -d '=' -f 2)
 apt-get update && apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common -yq
 
-curl -fsSL https://download.docker.com/linux/$OS_ID/gpg | apt-key add -
+curl -fsSL "https://download.docker.com/linux/${OS_ID}/gpg" | apt-key add -
 
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/$OS_ID \
@@ -31,6 +31,6 @@ chmod +x /usr/local/bin/docker-compose ./up ./down
 
 ./up -d
 
-docker container exec -i `docker-compose -f docker-compose.yml ps | grep "mongo_1" | awk '{print $1}'` mongo < compose/production/mongodb/createUser.js 
+docker container exec -i "$(docker-compose -f docker-compose.yml ps | grep \"mongo_1\" | awk '{print $1}')" mongo < compose/production/mongodb/createUser.js
 
 docker-compose -f docker-compose.yml ps

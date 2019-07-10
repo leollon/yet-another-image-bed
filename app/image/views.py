@@ -53,22 +53,33 @@ def index():
             img_name = str(uuid.uuid4()).replace('-',
                                                  '')[:16] + '.' + file_type
             file_id = str(uuid.uuid1()).replace('-', '')[:10]
-            file.save(
-                os.path.join(current_app.config['UPLOAD_BASE_FOLDER'],
-                             img_name))
-            resp_data.update({
-                "data": {
-                    "imgName": img_name,
-                    "fileId": file_id,
-                    "origName": original_name
-                }
-            })
-            pic_bed = PicBed(
-                img_id=file_id, orig_img_name=original_name, img_name=img_name)
-            pic_bed.save()
+            status_code = 200
+            try:
+                file.save(
+                    os.path.join(current_app.config['UPLOAD_BASE_FOLDER'], img_name)
+                )
+            except PermissionError:
+                status_code = 502
+                resp_data.update({
+                    "data": None,
+                    "code": 1,
+                    "message": "no permission."
+                    })
+            else:
+                resp_data.update({
+                    "data": {
+                        "imgName": img_name,
+                        "fileId": file_id,
+                        "origName": original_name
+                    }
+                })
+                pic_bed = PicBed(
+                    img_id=file_id, orig_img_name=original_name, img_name=img_name)
+                pic_bed.save()
             return Response(
                 json.dumps(resp_data, indent=4),
-                content_type="application/json; charset=utf-8")
+                content_type="application/json; charset=utf-8",
+                status=status_code)
         else:
             resp_data['msg'] = 'error'
             return Response(

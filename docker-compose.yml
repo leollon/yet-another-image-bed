@@ -9,7 +9,7 @@ services:
         - "17017:27017"
       restart: "always"
   web:
-    image: imgbed_codebase
+    image: imgbed_web_service
     build: 
       context: .
       dockerfile: ./compose/production/picbed/Dockerfile
@@ -19,8 +19,8 @@ services:
       - "5050:5050"
       - "5151:5151"
     volumes:
-      - ./static_files:/home/imgbed/app/static
-      - ./uploaded_images:/home/imgbed/upload
+      - ./static_files:/home/imgbed/app/static:rw
+      - ./uploaded_images:/home/imgbed/upload:rw
     depends_on:
       - mongo
 
