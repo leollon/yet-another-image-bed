@@ -36,14 +36,15 @@ COPY compose/production/picbed/uwsgi.ini ./uwsgi.ini
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt && rm -f requirements.txt
+
+RUN mkdir -p $LOG_DIR $DEPLOY_DIR $IMG_DIR
+RUN touch $PIDFILE $LOGFILE
+
 RUN chown -R imgbed:imgbed ./
 RUN chmod -R 755 ./
 
 # 使用imgbed用户执行 `RUN`, `CMD` and `ENTRYPOINT`
 USER imgbed
-
-RUN mkdir -p $LOG_DIR $DEPLOY_DIR $IMG_DIR
-RUN touch $PIDFILE $LOGFILE
 
 RUN bash -c "echo -e \"uid=imgbed\ngid=imgbed\nhome=/usr/local/\nchdir=./\npidfile=$PIDFILE\nlogto=$LOGFILE\" >> \
     ./uwsgi.ini"

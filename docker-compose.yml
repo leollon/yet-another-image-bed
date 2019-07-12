@@ -24,3 +24,9 @@ services:
     depends_on:
       - mongo
 
+volumes:
+  mongo_db: {}
+  static_files: {}
+  uploaded_images: {}
+
+

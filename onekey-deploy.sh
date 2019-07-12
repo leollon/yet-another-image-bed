@@ -31,6 +31,6 @@ chmod +x /usr/local/bin/docker-compose ./up ./down
 
 ./up -d
 
-docker container exec -i "$(docker-compose -f docker-compose.yml ps | grep \"mongo_1\" | awk '{print $1}')" mongo < compose/production/mongodb/createUser.js
+docker container exec -i "$(docker-compose -f docker-compose.yml ps | grep 'mongo_1' | awk '{print $1}')" mongo < compose/production/mongodb/createUser.js
 
 docker-compose -f docker-compose.yml ps
