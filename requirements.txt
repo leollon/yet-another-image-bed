@@ -14,6 +14,6 @@ sentry-sdk==0.4.3
 six==1.11.0
 urllib3>=1.24.2
 uWSGI==2.0.17
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.1
 Jinja2>=2.10.1
