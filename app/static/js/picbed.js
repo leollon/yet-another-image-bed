@@ -67,11 +67,14 @@ function renderData(jsonData) {
 
 $('.del-btn').on('click', function (e) {
     let id = $(this).data('img-id');
-    $.ajax({
-        url: '/remove/' + $(this).data('img-id'),
-        type: 'GET',
-        success: function () {
-            $('#' + id).remove()
-        }
-    })
+    let confirmation = window.confirm("Remove image " + id);
+    if (confirmation) {
+        $.ajax({
+            url: '/remove/' + id,
+            type: 'GET',
+            success: function () {
+                $('#' + id).remove()
+            }
+        })
+    }
 })
