@@ -1,6 +1,9 @@
 *.pyc
 .tags*
 .vscode/
+.mypy_cache/
+uploaded_images/
+mongo_db/
 picEnv/
 __pycache__/
 picEnv/
