@@ -1,2 +1,6 @@
 #!/bin/bash
+
+mkdir -p mongo_db static_files uploaded_images
+cp -r ./app/static/* static_files
+
 docker-compose -f docker-compose.yml up "$@"

@@ -1,4 +1,3 @@
-import os
 import uuid
 import json
 from pathlib import Path
@@ -8,10 +7,31 @@ from werkzeug.exceptions import RequestEntityTooLarge
 from flask import current_app, request, Response
 from flask import render_template, abort
 from mongoengine.errors import DoesNotExist
-from .utils import allowed_file
+from flask_restplus import Api, fields, Resource
+
 from . import image
 from .model import PicBed
+from .utils import allowed_file
 
+api = Api()
+model = api.model('Model', {
+    "img_id": fields.String,
+    "img_name": fields.String,
+})
+
+
+@api.route("/image/")
+class ImageResource(Resource):
+
+    @api.marshal_with(model, envelope='image')
+    def get(self, *args, **kwargs):
+        return PicBed.objects
+
+    def post(self, *args, **kwargs):
+        pass
+
+    def delete(self, *args, **kwargs):
+        pass
 
 @image.route('/', methods=['GET', 'POST'])
 def index():
@@ -23,9 +43,7 @@ def index():
                 "fileId": None
             }
         }
-        # check if the post request has the file part
-        if not os.path.exists(current_app.config['UPLOAD_BASE_FOLDER']):
-            os.mkdir(current_app.config['UPLOAD_BASE_FOLDER'])
+        Path(current_app.config['UPLOAD_BASE_FOLDER']).mkdir(parents=True, exist_ok=True)
         if 'file' not in request.files:
             msg = 'No file part'
             resp_data['code'] = 'failure'
@@ -55,9 +73,7 @@ def index():
             file_id = str(uuid.uuid1()).replace('-', '')[:10]
             status_code = 200
             try:
-                file.save(
-                    os.path.join(current_app.config['UPLOAD_BASE_FOLDER'], img_name)
-                )
+                file.save((Path(current_app.config['UPLOAD_BASE_FOLDER']) / img_name).as_posix())
             except PermissionError:
                 status_code = 502
                 resp_data.update({

@@ -1,5 +1,8 @@
 from datetime import datetime
 from mongoengine import Document, StringField, DateTimeField
+from flask_mongoengine import MongoEngine
+
+image_db = MongoEngine()
 
 
 class PicBed(Document):

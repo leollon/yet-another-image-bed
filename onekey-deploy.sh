@@ -6,8 +6,6 @@ then
     exit 1
 fi
 
-mkdir mongo_db static_files uploaded_images
-cp -r ./app/static/* static_files
 OS_ID=$(grep -i "^id=.*" /etc/os-release | cut -d '=' -f 2)
 apt-get update && apt-get install \
     apt-transport-https \
@@ -29,7 +27,7 @@ docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose ./up ./down
 
-./up -d
+./up --build -d
 
 docker container exec -i "$(docker-compose -f docker-compose.yml ps | grep 'mongo_1' | awk '{print $1}')" mongo < compose/production/mongodb/createUser.js
 

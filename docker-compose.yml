@@ -2,31 +2,38 @@ version: '3'
 
 services:
   mongo:
-      image: mongo:3.6
+      image: picbed/mongo-3.6
+      build:
+        context: .
+        dockerfile: ./compose/production/mongodb/Dockerfile
+      env_file:
+        - ./.envs/.mongo
       volumes:
         - ./mongo_db:/data/db
       ports:
-        - "17017:27017"
+        - "127.0.0.1:17017:27017"
       restart: "always"
+
   web:
-    image: imgbed_web_service
+    image: picbed/web
     build: 
       context: .
       dockerfile: ./compose/production/picbed/Dockerfile
-    command: uwsgi --ini uwsgi.ini
-    restart: "always"
+    entrypoint: /entrypoint
+    command: python wsgi.py
+    env_file:
+      - ./.envs/.picbed
+      - ./.envs/.mongo
     ports:
-      - "5050:5050"
-      - "5151:5151"
+      - "127.0.0.1:5050:5050"
     volumes:
-      - ./static_files:/home/imgbed/app/static:rw
-      - ./uploaded_images:/home/imgbed/upload:rw
+      - ./static_files:/home/picbed/app/static
+      - ./uploaded_images:/home/picbed/upload
     depends_on:
       - mongo
+    restart: "always"
 
 volumes:
   mongo_db: {}
   static_files: {}
   uploaded_images: {}
-
-

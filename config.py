@@ -1,4 +1,4 @@
-import os
+from os import environ
 from pathlib import Path
 
 
@@ -18,11 +18,11 @@ class DevelopmentConfig(Config):
     TESTING = True
     ENV = 'Develoment'
     MONGODB_SETTINGS = {
-        'db': 'imgbed4yourself',
-        'host': 'mongo',
-        'port': 27017,
-        'username': 'your_username',
-        'password': 'your_password',
+        'db': environ.get("MONGO_INITDB_DATABASE"),
+        'host': environ.get("MONGO_HOST"),
+        'port': int(environ.get("MONGO_PORT")),
+        'username': environ.get("MONGO_USER"),
+        'password': environ.get("MONGO_USER_PASSWORD"),
         'connect': False
     }
 
