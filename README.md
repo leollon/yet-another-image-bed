@@ -2,7 +2,8 @@
 
 [中文部署文档](README_ZH_CN.md)
 
-# Acknowledgements
+## Acknowledgements
+
 - [letsencrypt](https://letsencrypt.org/)
 - [flask](https://github.com/pallets/flask)
 - [docker-ce](https://www.docker.com/community-edition)
@@ -10,17 +11,19 @@
 - [sm.ms](https://sm.ms)
 
 ## Ambition
+
 > Letsencrypt provides SSL/TLP certificate to support https, code based on my
 > personal needs, and practise what I've learned from docker and docker-compose.
 
 ## Deploy
 
-1. $ git clone https://github.com/leollon/yet-another-image-bed.git imgbed-project
-2. $ sudo bash onekey-deploy.sh
+1. `$ git clone https://github.com/leollon/yet-another-image-bed.git imgbed-project`
+2. `$ sudo bash onekey-deploy.sh`
 3. paste this configuration to your nginx vhost in the server block.
 
     **Note: modify username to your username, then `ctrl+c` and `ctrl+v`, yeah.**
-    ```
+
+    ```bash
     location / {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header Host $http_host;
@@ -40,9 +43,10 @@
     ```
 
 ### ToDO
-   - [x] upload/remove an image
-   - [x] deploy with docker compose
-   - [x] view all uploaded images
+
+- [x] upload/remove an image
+- [x] deploy with docker compose
+- [x] view all uploaded images
 
 ### Modifications based on your needs
 
@@ -54,4 +58,5 @@
   > set user and password for imgbed document
 
 ## License 
+
 > [GNU LV3](./LICENSE)
