@@ -3,7 +3,10 @@
 .vscode/
 .mypy_cache/
 uploaded_images/
+static_files/
 mongo_db/
 picEnv/
 __pycache__/
 picEnv/
+run
+var

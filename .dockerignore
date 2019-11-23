@@ -12,3 +12,5 @@ __pycache__
 static_files
 uploaded_images
 mongo_db
+run
+var
