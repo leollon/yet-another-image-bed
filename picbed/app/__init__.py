@@ -25,13 +25,13 @@ def create_app(config_name):
     
     from .image.model import image_db
     from .image import image as image_blueprint
-    from .image.views import api
+    from .image.apis import image_api
 
 
-    api.init_app(application)
+    application.register_blueprint(image_blueprint)
+    image_api.init_app(application)
     image_db.init_app(application)
     csrf.init_app(application)
 
-    application.register_blueprint(image_blueprint)
 
     return application

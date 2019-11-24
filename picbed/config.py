@@ -4,8 +4,7 @@ from pathlib import Path
 
 class Config(object):
     SECRET_KEY = 'your_secret_key'
-    UPLOAD_BASE_FOLDER = (
-        Path.home() / 'upload').as_posix()  # get absolut path
+    UPLOAD_BASE_FOLDER = (Path('/upload').as_posix())  # get absolut path
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # file uploaded max size
 
     @staticmethod

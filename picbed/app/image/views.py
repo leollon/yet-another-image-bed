@@ -7,31 +7,11 @@ from werkzeug.exceptions import RequestEntityTooLarge
 from flask import current_app, request, Response
 from flask import render_template, abort
 from mongoengine.errors import DoesNotExist
-from flask_restplus import Api, fields, Resource
 
 from . import image
 from .model import PicBed
 from .utils import allowed_file
 
-api = Api()
-model = api.model('Model', {
-    "img_id": fields.String,
-    "img_name": fields.String,
-})
-
-
-@api.route("/image/")
-class ImageResource(Resource):
-
-    @api.marshal_with(model, envelope='image')
-    def get(self, *args, **kwargs):
-        return PicBed.objects
-
-    def post(self, *args, **kwargs):
-        pass
-
-    def delete(self, *args, **kwargs):
-        pass
 
 @image.route('/', methods=['GET', 'POST'])
 def index():
@@ -43,7 +23,7 @@ def index():
                 "fileId": None
             }
         }
-        Path(current_app.config['UPLOAD_BASE_FOLDER']).mkdir(parents=True, exist_ok=True)
+        Path(current_app.config['UPLOAD_BASE_FOLDER']).mkdir(mode=644, parents=True, exist_ok=True)
         if 'file' not in request.files:
             msg = 'No file part'
             resp_data['code'] = 'failure'

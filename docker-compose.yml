@@ -12,7 +12,6 @@ services:
         - ./mongo_db:/data/db
       ports:
         - "127.0.0.1:17017:27017"
-      restart: "always"
 
   web:
     image: picbed/web
@@ -27,11 +26,11 @@ services:
     ports:
       - "127.0.0.1:5050:5050"
     volumes:
-      - ./static_files:/home/picbed/app/static
-      - ./uploaded_images:/home/picbed/upload
+      - ./picbed:/picbed
+      - ./static_files:/picbed/app/static
+      - ./uploaded_images:/upload
     depends_on:
       - mongo
-    restart: "always"
 
 volumes:
   mongo_db: {}
