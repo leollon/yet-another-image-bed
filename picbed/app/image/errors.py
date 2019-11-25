@@ -1,7 +1,8 @@
 import json
 
 from flask import Response, render_template
-from . import image
+
+from .views import image
 
 
 @image.app_errorhandler(413)

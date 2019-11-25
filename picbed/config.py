@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class Config(object):
-    SECRET_KEY = 'your_secret_key'
+    SECRET_KEY = environ.get("SECRET_KEY")
     UPLOAD_BASE_FOLDER = (Path('/upload').as_posix())  # get absolut path
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # file uploaded max size
 

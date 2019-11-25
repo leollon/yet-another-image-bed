@@ -32,7 +32,7 @@ $('#submit').click(function () {
     let formData = new FormData($('form')[0]);
     if (formData) {
         $.ajax({
-            url: '/',
+            url: '/image/',
             type: 'POST',
             cache: false,
             data: formData,
@@ -57,7 +57,7 @@ function renderData(jsonData) {
         htmlcode = '<img src="' + imgLink + '" alt="' + jsonData.data.origName + '" title="' + jsonData.data.origName + '">',
         markdowncode = '![' + jsonData.data.imgName + '](' + imgLink + ')',
         mdwithlinkcode = '![' + imgLink + '](' + imgLink + ')';
-    let deletecode = window.location.href + 'remove/' + jsonData.data.fileId;
+    let deletecode = window.location.href + 'remove/' + jsonData.data.imgId;
     $('#urlcode').text(urlcode);
     $('#htmlcode').text(htmlcode);
     $('#markdowncode').text(markdowncode);

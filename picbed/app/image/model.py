@@ -1,6 +1,7 @@
 from datetime import datetime
-from mongoengine import Document, StringField, DateTimeField
+
 from flask_mongoengine import MongoEngine
+from mongoengine import DateTimeField, Document, StringField
 
 image_db = MongoEngine()
 
@@ -15,5 +16,5 @@ class PicBed(Document):
         "indexes": ['img_id', 'orig_img_name', ('img_id', 'img_name')]
     }
 
-    def __str__(self):
-        return self.img_name
+    def __repr__(self):
+        return '<%s(img_id=%s, img_name=%s)>' % (self.__class__.__name__, self.img_id, self.img_name)

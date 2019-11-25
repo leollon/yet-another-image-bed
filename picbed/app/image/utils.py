@@ -1,9 +1,8 @@
 """verification for each uploaded image
 """
-from flask import current_app
 
 
-def allowed_file(filename):
+def allowed_file(file):
     """whether each uploaded file is allowed or not.
     Arguments:
         :type filename: str
@@ -13,6 +12,7 @@ def allowed_file(filename):
     >>> allowed_file('image2.png')
     png
     """
-    allowed_types = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in allowed_types
+    allowed_types = ('image/jpeg', 'image/png', 'image/gif', 'image/svg+xml')
+    print(file.content_type)
+    return '.' in file.filename and \
+           file.content_type in allowed_types
