@@ -2,10 +2,13 @@ import json
 import uuid
 from pathlib import Path
 
-from flask import Blueprint, current_app
+from flask import Blueprint, abort, current_app, render_template
 from flask_restplus import Api, Resource, fields
+from mongoengine.errors import DoesNotExist
 from werkzeug.datastructures import FileStorage
-from werkzeug.exceptions import RequestEntityTooLarge
+from werkzeug.exceptions import (InternalServerError, NotFound,
+                                 RequestEntityTooLarge)
+from werkzeug.http import HTTP_STATUS_CODES
 from werkzeug.utils import secure_filename
 
 from .model import PicBed
@@ -28,7 +31,7 @@ image_model = image_api.model('image', {
 
 
 @image_api.route("/image/")
-class ImageResource(Resource):
+class ImageResourceList(Resource):
 
     @image_api.doc('list_images')
     @image_api.marshal_list_with(image_model, envelope='images')
@@ -76,12 +79,6 @@ class ImageResource(Resource):
                     "code": '5002',
                     "message": "No permission"
                     })
-            except RequestEntityTooLarge:
-                status_code = 413
-                resp_data.update({
-                    "code": 4013,
-                    "message": "File too large"
-                })
             else:
                 resp_data["data"] = {
                         "imgName": img_name,
@@ -95,6 +92,36 @@ class ImageResource(Resource):
             resp_data['message'] = 'No supported type'
         return resp_data, status_code
 
-    @image_api.doc('remove_an_image')
-    def delete(self, *args, **kwargs):
-        pass
+
+@image_api.route("/image/<string:img_id>")
+class ImageResource(Resource):
+
+    @image_api.doc('remove an image')
+    def delete(self, img_id):
+        try:
+            img = PicBed.objects.get(img_id=img_id)
+            base_dir = current_app.config['UPLOAD_BASE_FOLDER']
+            file_path = Path(base_dir) / img.img_name
+            if file_path.is_file():
+                img.delete()
+                file_path.unlink()
+                return {"code": "2004", "message": HTTP_STATUS_CODES.get(204)}, 204
+        except DoesNotExist:
+            pass
+        abort(404)
+
+
+@image_api.errorhandler(RequestEntityTooLarge)
+def file_too_large(error):
+    resp_data = {"code": "4013", "message": HTTP_STATUS_CODES.get(413)}
+    return resp_data, RequestEntityTooLarge.code
+
+
+@image_api.errorhandler(NotFound)
+def page_not_found(error):
+    return render_template("404.html")
+
+
+@image_api.errorhandler(InternalServerError)
+def server_error(error):
+    return render_template("500.html")

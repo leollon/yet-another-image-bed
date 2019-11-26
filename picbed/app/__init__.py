@@ -29,6 +29,6 @@ def create_app(config_name):
     csrf.init_app(application)
     image_db.init_app(application)
     application.register_blueprint(image_blueprint)
-    application.register_blueprint(image_api_blueprint)
+    application.register_blueprint(image_api_blueprint, url_prefix='/api/v1')
 
     return application
