@@ -1,18 +1,12 @@
 {% extends "base.html" %}
 {% block title %}所有图片{% endblock %}
 {% block container %}
+
 <div class="col-xs-12 col-sm-12 col-md-12">
-    <ul id="image-list" class="evenly-distributed-children">
-        {% for image in image_list %}
-        <li class="content" id="{{image.img_id}}">
-            <img src="{{ url_for('image.index') }}{{image.img_name}}" class="img-rounded">
-            <div class="operation">
-                <button class="btn btn-danger del-btn" data-img-id="{{image.img_id}}">
-                    <span class="glyphicon glyphicon glyphicon-trash"
-                        aria-hidden="true"></span>
-                </button>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-</div> {% endblock %}
+    <ul id="image-list" class="evenly-distributed-children"></ul>
+</div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/images-list.js') }}"></script>
+{% endblock %}
