@@ -13,6 +13,5 @@ def allowed_file(file):
     png
     """
     allowed_types = ('image/jpeg', 'image/png', 'image/gif', 'image/svg+xml')
-    print(file.content_type)
     return '.' in file.filename and \
            file.content_type in allowed_types

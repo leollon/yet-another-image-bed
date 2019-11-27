@@ -2,7 +2,7 @@ import json
 import uuid
 from pathlib import Path
 
-from flask import Blueprint, abort, current_app, render_template
+from flask import Blueprint, abort, current_app
 from flask_restplus import Api, Resource, fields
 from mongoengine.errors import DoesNotExist
 from werkzeug.datastructures import FileStorage
@@ -11,6 +11,7 @@ from werkzeug.exceptions import (InternalServerError, NotFound,
 from werkzeug.http import HTTP_STATUS_CODES
 from werkzeug.utils import secure_filename
 
+from .errors import file_too_large, page_not_found, server_error
 from .model import PicBed
 from .utils import allowed_file
 
@@ -28,6 +29,15 @@ image_model = image_api.model('image', {
     "img_id": fields.String,
     "img_name": fields.String,
 })
+
+# image_api.error_handlers[RequestEntityTooLarge] = file_too_large
+# image_api.error_handlers[NotFound] = page_not_found
+# image_api.error_handlers[InternalServerError] = server_error
+# equivalent to as follows
+
+image_api.errorhandler(RequestEntityTooLarge)(file_too_large)
+image_api.errorhandler(NotFound)(page_not_found)
+image_api.errorhandler(InternalServerError)(server_error)
 
 
 @image_api.route("/image/")
@@ -109,19 +119,3 @@ class ImageResource(Resource):
         except DoesNotExist:
             pass
         abort(404)
-
-
-@image_api.errorhandler(RequestEntityTooLarge)
-def file_too_large(error):
-    resp_data = {"code": "4013", "message": HTTP_STATUS_CODES.get(413)}
-    return resp_data, RequestEntityTooLarge.code
-
-
-@image_api.errorhandler(NotFound)
-def page_not_found(error):
-    return render_template("404.html")
-
-
-@image_api.errorhandler(InternalServerError)
-def server_error(error):
-    return render_template("500.html")
