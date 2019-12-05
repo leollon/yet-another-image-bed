@@ -9,3 +9,4 @@ sentry-sdk[flask]==0.6.6
 flake8==3.7.9
 pre-commit==1.20
 pylint==2.4.4
+uwsgi==2.0.17

@@ -5,4 +5,6 @@ export FLASK_ENV=development
 export FLASK_DEBUG=1
 export FLASK_APP=wsgi.py
 
+mkdir -p run
+touch "${PIDFILE}"
 exec "$@"
