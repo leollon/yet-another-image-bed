@@ -21,21 +21,15 @@ image_api = Api(
     title="Image API",
     description="Image API for listing images, uploding and removing an image",
 )
+image_api.errorhandler(RequestEntityTooLarge)(file_too_large)
+image_api.errorhandler(NotFound)(page_not_found)
+image_api.errorhandler(InternalServerError)(server_error)
 upload_parser = image_api.parser()
 upload_parser.add_argument("file", location="files", type=FileStorage, required=True)
 image_model = image_api.model("image", {"img_id": fields.String, "img_name": fields.String})
 
-# image_api.error_handlers[RequestEntityTooLarge] = file_too_large
-# image_api.error_handlers[NotFound] = page_not_found
-# image_api.error_handlers[InternalServerError] = server_error
-# equivalent to as follows
 
-image_api.errorhandler(RequestEntityTooLarge)(file_too_large)
-image_api.errorhandler(NotFound)(page_not_found)
-image_api.errorhandler(InternalServerError)(server_error)
-
-
-@image_api.route("/image/")
+@image_api.route("/images")
 class ImageResourceList(Resource):
     @image_api.doc("list_images")
     @image_api.marshal_list_with(image_model, envelope="images")
@@ -85,7 +79,7 @@ class ImageResourceList(Resource):
         return resp_data, status_code
 
 
-@image_api.route("/image/<string:img_id>")
+@image_api.route("/images/<string:img_id>")
 class ImageResource(Resource):
     @image_api.doc("remove an image")
     def delete(self, img_id):

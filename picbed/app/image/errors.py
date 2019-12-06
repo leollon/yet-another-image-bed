@@ -1,5 +1,6 @@
-from flask import render_template
-from werkzeug.exceptions import RequestEntityTooLarge
+from flask import Response, render_template
+from werkzeug.exceptions import (InternalServerError, NotFound,
+                                 RequestEntityTooLarge)
 from werkzeug.http import HTTP_STATUS_CODES
 
 
@@ -9,8 +10,8 @@ def file_too_large(error):
 
 
 def page_not_found(error):
-    return render_template("404.html")
+    return Response(render_template("404.html"), status=NotFound.code)
 
 
 def server_error(error):
-    return render_template("500.html")
+    return Response(render_template("500.html"), status=InternalServerError.code)

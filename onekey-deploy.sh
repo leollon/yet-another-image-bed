@@ -11,7 +11,7 @@ then
 fi
 
 OS_ID=$(grep -i "^id=.*" /etc/os-release | cut -d '=' -f2)
-if [ "${OS_ID}" != "ubuntu" ] || [ "${OS_ID}" != "debian"]
+if [ "${OS_ID}" != "ubuntu" ] && [ "${OS_ID}" != "debian" ]
 then
     echo -e "${RED}Only run this script on debian-like OS.${NOCOLOR}"
     exit 1

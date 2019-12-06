@@ -15,7 +15,7 @@ $('#submit').click(function () {
     let formData = new FormData($('form')[0]);
     if (formData) {
         $.ajax({
-            url: '/api/v1/image/',
+            url: '/api/v1/images',
             type: 'POST',
             cache: false,
             data: formData,

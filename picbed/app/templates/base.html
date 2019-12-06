@@ -35,8 +35,14 @@
     {% block scripts %}
     <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- <script src="{{ url_for('static', filename='js/jquery.js') }}"></script> -->
-    <!-- <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script> -->
-    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token() }}");
+            }
+        }
+    });
+    </script>
     {% endblock %}
 </body>
