@@ -42,7 +42,7 @@ class ImageResourceList(Resource):
         args = upload_parser.parse_args()
         status_code = 200
         resp_data = {"code": 2000, "message": ""}
-        Path(current_app.config["UPLOAD_BASE_FOLDER"]).mkdir(mode=644, parents=True, exist_ok=True)
+        Path(current_app.config["UPLOAD_BASE_FOLDER"]).mkdir(mode=0o644, parents=True, exist_ok=True)
         if "file" not in args:
             msg = "No file part"
             resp_data["code"] = "failure"
@@ -54,9 +54,8 @@ class ImageResourceList(Resource):
         # submit a empty part without filename
         if uploaded_file.filename == "":
             status_code = 400
-            msg = ""
             resp_data.update({"code": "4000", "message": "No selected file"})
-            resp_data["message"] = msg
+            return resp_data, status_code
         if uploaded_file and allowed_file(uploaded_file):
             original_name = uploaded_file.filename.rsplit("/")[-1]  # 取上传文件的原始文件名
             file_suffix = secure_filename(uploaded_file.filename).rsplit(".")[-1].lower()
