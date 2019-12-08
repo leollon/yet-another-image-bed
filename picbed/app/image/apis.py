@@ -42,11 +42,10 @@ class ImageResourceList(Resource):
         args = upload_parser.parse_args()
         status_code = 200
         resp_data = {"code": 2000, "message": ""}
-        Path(current_app.config["UPLOAD_BASE_FOLDER"]).mkdir(mode=0o644, parents=True, exist_ok=True)
+        Path(current_app.config["UPLOAD_BASE_FOLDER"]).mkdir(mode=0o755, parents=True, exist_ok=True)
         if "file" not in args:
-            msg = "No file part"
             resp_data["code"] = "failure"
-            resp_data["message"] = msg
+            resp_data["message"] = "No file part"
             resp_data.pop("data")
             return resp_data, 400
         uploaded_file = args["file"]
