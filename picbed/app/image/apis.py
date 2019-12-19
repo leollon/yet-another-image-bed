@@ -17,6 +17,7 @@ from .utils import allowed_file, remove_image
 blueprint = Blueprint("api", __name__)
 image_api = Api(
     blueprint,
+    doc=False,
     version=1.0,
     title="Image API",
     description="Image API for listing images, uploding and removing an image",
